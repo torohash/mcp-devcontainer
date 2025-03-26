@@ -1,46 +1,45 @@
-# MCP開発プロジェクト
+# MCP 開発プロジェクト
 
 ## 開発環境のセットアップ
 
-このプロジェクトはVS Code Remote Containersを使用して開発環境を構築します。
+このプロジェクトは VS Code Remote Containers を使用して開発環境を構築します。
 
 ### 前提条件
 
 - Docker
 - Visual Studio Code
-- Remote - Containers拡張機能
+- Remote - Containers 拡張機能
 
 ### セットアップ手順
 
 1. リポジトリをクローン
-  ```
-  git clone <repository-url> .devcontainer
-  ```
 
-2. VS CodeのコマンドパレットからRemote-Containers: Reopen in Containerを選択
+```
+git clone <repository-url> .devcontainer
+```
+
+2. VS Code のコマンドパレットから Remote-Containers: Reopen in Container を選択
 
 3. コンテナ内で初期化
-  ```
-  bun init
-  ```
+
+```
+npm init -y
+```
 
 4. コンテナ内で依存関係をインストール
-  ```
-  bun install
-  ```
 
-5. 開発サーバーを起動
-  ```
-  bun dev
-  ```
+```
+pnpm install
+```
 
 ## ネットワーク設定
 
-このDevContainerは以下のネットワーク設定を持っています：
+この DevContainer は以下のネットワーク設定を持っています：
 
-- **MCPネットワーク** (`--network=mcp-network`)
-  - 専用のDockerネットワーク
-  - 他のMCP関連コンテナとの通信用
+- **MCP ネットワーク** (`--network=mcp-network`)
+
+  - 専用の Docker ネットワーク
+  - 他の MCP 関連コンテナとの通信用
   - 自動ネットワーク作成: コンテナ起動前に自動的に作成されるため、手動での作成は不要です
   - 既にネットワークが存在する場合は、既存のものが使用されます
 
@@ -48,43 +47,48 @@
   - 固定のコンテナ名「mcp-dev」を使用
   - これにより、他のコンテナからは「mcp-dev:3001」の形式でアクセス可能
 
-デフォルトでは、ポート3001が使用されます。
+デフォルトでは、ポート 3001 が使用されます。
 
 ## 権限設定
 
-このDevContainerは以下の権限設定を持っています：
+この DevContainer は以下の権限設定を持っています：
 
-- **ユーザーID同期** (`updateRemoteUserUID: true`)
-  - コンテナ内のユーザーIDをホスト側のユーザーIDに自動的に合わせる
+- **ユーザー ID 同期** (`updateRemoteUserUID: true`)
+
+  - コンテナ内のユーザー ID をホスト側のユーザー ID に自動的に合わせる
   - これにより、ファイル所有権の問題を防止
 
-- **SSHキーのマウント**
-  - ホストの`~/.ssh`ディレクトリをコンテナ内の`/home/bun/.ssh`に読み取り専用でマウント
-  - これにより、コンテナ内でgitコマンドを使用する際にホストのSSH鍵を使用可能
+- **SSH キーのマウント**
+  - ホストの`~/.ssh`ディレクトリをコンテナ内の`/home/node/.ssh`に読み取り専用でマウント
+  - これにより、コンテナ内で git コマンドを使用する際にホストの SSH 鍵を使用可能
   - セキュリティのため読み取り専用でマウントされる
 
-## TypeScriptの実行方法
+## TypeScript の実行方法
 
-このプロジェクトではbun (v1.2.6)を使用しており、TypeScriptを直接実行できます：
+このプロジェクトでは Node.js v23 と pnpm を使用しています：
 
 ```bash
-# TypeScriptファイルを直接実行
-bun run src/index.ts
+# TypeScriptをコンパイルして実行
+pnpm tsc
+node dist/index.js
 
 # package.jsonにスクリプトを追加した場合
-# "scripts": { "dev": "bun run src/index.ts" }
-bun dev
+# "scripts": { "dev": "ts-node src/index.ts" }
+pnpm dev
 
 # 本番用にビルド
-bun build ./src/index.ts --outdir ./dist
+pnpm tsc
+# または
+pnpm build # package.jsonに"build": "tsc"を設定している場合
 ```
 
-bunの主な利点：
-- TypeScriptを直接実行可能（追加のツールが不要）
+pnpm の主な利点：
+
 - 高速なパッケージマネージャー
-- 高速なJavaScriptランタイム
-- ビルトインのバンドラー、テストランナー
+- ディスク容量の節約（パッケージの重複を避ける）
+- 厳格な依存関係管理
 
 ## 使用技術
 
-- Bun v1.2.6（JavaScriptランタイムとパッケージマネージャー）
+- Node.js v23（JavaScript ランタイム）
+- pnpm（パッケージマネージャー）

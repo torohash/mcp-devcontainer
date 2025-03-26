@@ -1,5 +1,5 @@
 {
-  "name": "Bun MCP Development",
+  "name": "Node MCP Development",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -49,17 +49,18 @@
     }
   },
   "forwardPorts": [3001],
-  "remoteUser": "bun",
+  "remoteUser": "node",
   "updateRemoteUserUID": true,
   "workspaceMount": "source=${localWorkspaceFolder},target=/opt/app,type=bind,consistency=cached",
   "workspaceFolder": "/opt/app",
   "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/bun/.ssh,type=bind,consistency=cached,readonly"
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached,readonly"
   ],
   "runArgs": [
     "--network=mcp-network",
     "--hostname=mcp-dev",
-    "--name", "mcp-dev"
+    "--name",
+    "mcp-dev"
   ],
   "initializeCommand": "docker network create mcp-network || true"
 }
