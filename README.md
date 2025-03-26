@@ -29,7 +29,7 @@ npm init -y
 4. コンテナ内で依存関係をインストール
 
 ```
-pnpm install
+npm install
 ```
 
 ## ネットワーク設定
@@ -65,30 +65,30 @@ pnpm install
 
 ## TypeScript の実行方法
 
-このプロジェクトでは Node.js v23 と pnpm を使用しています：
+このプロジェクトでは Node.js v23 と npm を使用しています：
 
 ```bash
 # TypeScriptをコンパイルして実行
-pnpm tsc
+npm run tsc
 node dist/index.js
 
 # package.jsonにスクリプトを追加した場合
 # "scripts": { "dev": "ts-node src/index.ts" }
-pnpm dev
+npm run dev
 
 # 本番用にビルド
-pnpm tsc
+npm run tsc
 # または
-pnpm build # package.jsonに"build": "tsc"を設定している場合
+npm run build # package.jsonに"build": "tsc"を設定している場合
 ```
 
-pnpm の主な利点：
+npm の特徴：
 
-- 高速なパッケージマネージャー
-- ディスク容量の節約（パッケージの重複を避ける）
-- 厳格な依存関係管理
+- Node.js の標準パッケージマネージャー
+- 豊富なエコシステムと広範なコミュニティサポート
+- 継続的な改善と安定性
 
 ## 使用技術
 
 - Node.js v23（JavaScript ランタイム）
-- pnpm（パッケージマネージャー）
+- npm（パッケージマネージャー）

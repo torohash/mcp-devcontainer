@@ -62,5 +62,5 @@
     "--name",
     "mcp-dev"
   ],
-  "initializeCommand": "docker network create mcp-network || true"
+  "initializeCommand": "docker network inspect mcp-network >/dev/null 2>&1 || docker network create mcp-network"
 }

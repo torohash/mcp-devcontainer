@@ -6,8 +6,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# pnpmのインストール
-RUN npm install -g pnpm
+# 最新のnpmをインストール
+RUN npm install -g npm@latest
 
 # ホスト名の設定
 RUN echo "mcp-dev" > /etc/hostname
