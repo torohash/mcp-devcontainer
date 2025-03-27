@@ -1,9 +1,9 @@
 FROM node:23
 
 # 必要なパッケージのインストール
-RUN apt-get update && \
-    apt-get install -y git bash-completion tree vim curl && \
-    apt-get clean && \
+RUN apt update && \
+    apt install -y git bash-completion tree vim curl &&\
+    apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 # 最新のnpmをインストール
@@ -24,6 +24,8 @@ RUN chsh -s /bin/bash node
 
 # ホームディレクトリの所有権を確保
 RUN chown -R node:node /home/node
+
+RUN npx playwright install-deps
 
 USER node
 WORKDIR /opt/app
