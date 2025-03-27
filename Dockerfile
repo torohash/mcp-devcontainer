@@ -25,7 +25,11 @@ RUN chsh -s /bin/bash node
 # ホームディレクトリの所有権を確保
 RUN chown -R node:node /home/node
 
+# Playwrightの依存パッケージをインストール
 RUN npx playwright install-deps
+
+# PlaywrightのブラウザはDockerfileで入れてもうまく動かないため、開発者側が実行する
+# npx playwright install chromium を実行してください
 
 USER node
 WORKDIR /opt/app
